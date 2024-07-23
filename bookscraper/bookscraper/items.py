@@ -3,10 +3,21 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/items.html
 
-import scrapy
+from scrapy import Item, Field
 
 
-class BookscraperItem(scrapy.Item):
+class BookItem(Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    url = Field()
+    title = Field()
+    category = Field()
+    description = Field()
+    product_type = Field()
+    price_excl_tax = Field()
+    price_incl_tax = Field()
+    tax = Field()
+    availability = Field()
+    number_of_reviews = Field()
+    stars = Field()
+    price = Field()

@@ -1,4 +1,5 @@
 import scrapy
+from bookscraper.items import BookItem
 
 
 class BookspiderSpider(scrapy.Spider):
@@ -14,13 +15,13 @@ class BookspiderSpider(scrapy.Spider):
             book_url = response.urljoin(next_page)
             yield response.follow(book_url, callback=self.parse_book_page)
 
-        next_page = response.css('li.next a::attr(href)').get()
-        if next_page is not None:
-            next_page_url = response.urljoin(next_page)
-            yield response.follow(next_page_url, callback=self.parse)
+        # next_page = response.css('li.next a::attr(href)').get()
+        # if next_page is not None:
+        #     next_page_url = response.urljoin(next_page)
+        #     yield response.follow(next_page_url, callback=self.parse)
 
     def parse_book_page(self, response):
-        book_item = {}
+        book_item = BookItem()
 
         book_item["url"] = response.url
         book_item["title"] = response.css('h1::text').get()
