@@ -1,4 +1,3 @@
-# create a model of the table to store the scraped data
 from bookscraper.engine import Base
 from sqlalchemy import Column, String, Integer, Float, Text
 

@@ -1,5 +1,4 @@
-# a class containing database storage actions
-from bookscraper.engine.models import Base
+from bookscraper.engine import Base
 from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker

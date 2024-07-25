@@ -7,7 +7,7 @@
 # useful for handling different item types with a single interface
 from bookscraper.engine.db_storage import DBStorage
 from bookscraper.engine.models import Books
-from itemadapter import ItemAdapter, adapter
+from itemadapter import ItemAdapter
 
 
 class BookscraperPipeline:
