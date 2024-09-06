@@ -1,5 +1,6 @@
-from bookscraper.items import BookItem
 import scrapy
+
+from bookscraper.items import BookItem
 
 
 class BookspiderSpider(scrapy.Spider):
@@ -7,7 +8,7 @@ class BookspiderSpider(scrapy.Spider):
     allowed_domains = ["books.toscrape.com"]
     start_urls = ["http://books.toscrape.com/"]
 
-    def parse(self, response):
+    def parse(self, response, **kwargs):
         books = response.css("article.product_pod")
 
         for book in books:

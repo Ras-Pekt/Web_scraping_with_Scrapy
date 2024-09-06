@@ -1,7 +1,9 @@
-from bookscraper.engine import Base
 from os import getenv
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+from bookscraper.engine import Base
 
 
 class DBStorage:
@@ -23,8 +25,10 @@ class DBStorage:
         self.__session = Session()
 
     def add_item(self, item):
-        self.__session.add(item)
-        self.__session.commit()
+        if self.__session:
+            self.__session.add(item)
+            self.__session.commit()
 
     def close(self):
-        self.__session.close()
+        if self.__session:
+            self.__session.close()

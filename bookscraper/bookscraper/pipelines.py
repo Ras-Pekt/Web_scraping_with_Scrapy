@@ -5,9 +5,10 @@
 
 
 # useful for handling different item types with a single interface
+from itemadapter import ItemAdapter
+
 from bookscraper.engine.db_storage import DBStorage
 from bookscraper.engine.models import Books
-from itemadapter import ItemAdapter
 
 
 class BookscraperPipeline:
@@ -18,25 +19,28 @@ class BookscraperPipeline:
         price_keys = ["price", "price_excl_tax", "price_incl_tax", "tax"]
         for key in price_keys:
             price = adapter.get(key)
-            adapter[key] = float(price.replace("£", ""))
+            if price:
+                adapter[key] = float(price.replace("£", ""))
 
         # convert star ratings to int
         text = adapter.get("stars")
-        stars = text.replace("star-rating ", "").strip()
-        if stars == "One":
-            adapter["stars"] = 1
-        elif stars == "Two":
-            adapter["stars"] = 2
-        elif stars == "Three":
-            adapter["stars"] = 3
-        elif stars == "Four":
-            adapter["stars"] = 4
-        elif stars == "Five":
-            adapter["stars"] = 5
+        if text:
+            stars = text.replace("star-rating ", "").strip()
+            if stars == "One":
+                adapter["stars"] = 1
+            elif stars == "Two":
+                adapter["stars"] = 2
+            elif stars == "Three":
+                adapter["stars"] = 3
+            elif stars == "Four":
+                adapter["stars"] = 4
+            elif stars == "Five":
+                adapter["stars"] = 5
 
         # change availability to to int
         text = adapter.get("availability")
-        adapter["availability"] = text.split("(")[1].split()[0]
+        if text:
+            adapter["availability"] = text.split("(")[1].split()[0]
 
         return item
 
